@@ -20,3 +20,9 @@
 #define changeSign(S,N) ((S) << 31) | ((N) & 0x7fffffff)
 #define m_Nan 0xfff00000
 #define m_Inf 0xff800000
+
+int32_t
+f2i (uint32_t);
+
+uint32_t
+i2f (int32_t);
