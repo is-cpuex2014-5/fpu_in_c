@@ -1,1 +1,8 @@
-fpuをCで実装したもの.ieee754の32bit floating pointを採用しつつ,例外などは行わない.
+fpuをCで実装したもの.
+
+仕様
+====
+
+* フォーマットはieee754の32bit floating pointを採用している.
+* denormalized numberは採用していない.(0になる)
+* roundingはround evenを採用している.
