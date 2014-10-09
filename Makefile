@@ -1,8 +1,8 @@
 CC = gcc
-SRCS = float.c
+SRCS = float.c fmul.c
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
-CFLAGS = -std=c99 -O2 -g
+CFLAGS = -std=c99 -O0 -g
 
 all: $(OBJS) $(DEPS)
 
@@ -19,7 +19,7 @@ clean:
 check-syntax:
 	$(CC) $(CFLAGS) -fsyntax-only $(CHK_SOURCES)
 
-test:test.o 
+test:test.o $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $^
 
 .PHONY:all clean check-syntax
