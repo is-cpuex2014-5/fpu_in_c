@@ -1,0 +1,1 @@
+fpuをCで実装したもの.ieee754の32bit floating pointを採用しつつ,例外などは行わない.
