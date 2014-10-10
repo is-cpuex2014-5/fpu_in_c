@@ -1,0 +1,12 @@
+language: c
+
+before_install:
+
+script:
+  - make test
+
+notifications:
+  emails:
+    - masakiwaga@gmail.com
+  on_success: always # default: change
+  on_failure: always

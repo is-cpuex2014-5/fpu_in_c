@@ -22,6 +22,7 @@ check-syntax:
 
 test:test.o $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $^
+	./test
 
 fmul_test: fmul.o fmul_test.o
 	$(CC) $(LDFLAGS) -o $@ $^
