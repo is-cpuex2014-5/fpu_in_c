@@ -7,10 +7,37 @@
 #include "float.h"
 #include <stdio.h>
 
+static int flag = 0;
+
+static uint32_t
+calcMantissa (uint32_t a,uint32_t b)
+{
+  uint32_t h_a = a >> 11,h_b = b >> 11,l_a = a & ((1 << 11) - 1),l_b = b & ((1 << 11) - 1),c;
+  int ptr = 32;
+  
+  h_a |= 1 << 12;
+  h_b |= 1 << 12;
+  c = h_a * h_b + ((h_a * l_b) >> 11) + ((l_a * h_b) >> 11) + 2;
+
+  flag = 0;  
+  while (ptr > 23) 
+    {
+      if (c & (1 << ptr)) 
+	{
+	  ++flag;
+	  c >>= 1;
+	}      
+      ptr--;      
+    }  
+  
+  return c & ((1 << 23) - 1);
+}
+
 uint32_t
 fmul (uint32_t a,uint32_t b)
 {
   const uint8_t sign = xor(getSign(a),getSign(b));
+  
   uint16_t exp;
   uint64_t mantissa;  
   uint8_t msb,r = 0;  
@@ -18,10 +45,18 @@ fmul (uint32_t a,uint32_t b)
   
   if (isInf(a))
     {
+      if (isZero(b))
+	{
+	  return m_Nan;	  
+	}      
       return changeSign(sign,a);
     } 
   else if (isInf(b))
     {
+      if (isZero(a))
+	{
+	  return m_Nan;	  
+	}      
       return changeSign(sign,b);
     }
   else if (isNaN(a))  
@@ -40,39 +75,18 @@ fmul (uint32_t a,uint32_t b)
     {
       return changeSign(sign,b);
     }
-  exp = (uint16_t)(getExp(a) + getExp(b) - 127);
+  exp = (getExp(a) + getExp(b) + 129);
   
-  mantissa = ((uint64_t)(1 << 23 | getMant(a)) * (uint64_t)(1 << 23 | getMant(b)));
-  for (i = 0; i < 22; ++i)
+  if (!(exp & (1 << 8)) || exp == 0) 
+    exp = 0;  
+  
+  mantissa = calcMantissa (getMant(a),getMant(b));
+  if (flag > 1) 
     {
-      r |= mantissa & 1;
-      mantissa >>= 1;
-    }
-  mantissa = (mantissa << 1) | r;    
-  msb = (mantissa & (1 << 26)) ? 1 : 0;
-  r = mantissa & 2;
-  for (i = 0; i < 24; i++)
-    {
-      r &= mantissa & (1 << i + 2);
-    }  
-  if (msb || r)  
-    {
-      ++exp;
-    }
-  if ((mantissa & 2) && ((mantissa & 1) | (mantissa & 4)) )
-    {
-      mantissa += 4;
-    }
-  if (msb || r) 
-    {
-      mantissa >>= 3;
-    }
-  else
-    {
-      mantissa >>= 2;
+      exp ++;
     }
   
   mantissa &= ((1 << 23) - 1);
-  
+  exp &= ((1 << 8) - 1);
   return makeFloat(sign,exp,mantissa);  
 }

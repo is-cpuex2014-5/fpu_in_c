@@ -21,7 +21,7 @@ check-syntax:
 	$(CC) $(CFLAGS) -fsyntax-only $(CHK_SOURCES)
 
 test:test.o $(OBJS)
-	$(CC) $(LDFLAGS) -o $@ $^
+	$(CC) -o $@ $^ $(LDFLAGS)
 	./test
 
 fmul_test: fmul.o fmul_test.o

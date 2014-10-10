@@ -6,3 +6,5 @@ a.out
 GPATH
 GTAGS
 GRTAGS
+fmul_binary
+fmul_test

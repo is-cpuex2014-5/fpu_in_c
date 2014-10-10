@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/is-cpuex2014-5/fpu_in_c.png?branch=master)](https://travis-ci.org/is-cpuex2014-5/fpu_in_c)
+
 fpuをCで実装したもの.
 
 仕様
