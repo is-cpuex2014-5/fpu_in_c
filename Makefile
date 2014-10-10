@@ -20,9 +20,9 @@ clean:
 check-syntax:
 	$(CC) $(CFLAGS) -fsyntax-only $(CHK_SOURCES)
 
-test:test.o $(OBJS)
-	$(CC) -o $@ $^ $(LDFLAGS)
-	./test
+test:
+	make -C test
+	./test/testfile
 
 fmul_test: fmul.o fmul_test.o
 	$(CC) $(LDFLAGS) -o $@ $^
@@ -30,4 +30,4 @@ fmul_test: fmul.o fmul_test.o
 fmul_binary: fmul.o fmul_binary.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
-.PHONY:all clean check-syntax
+.PHONY:all clean check-syntax test
