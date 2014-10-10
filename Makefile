@@ -3,6 +3,7 @@ SRCS = float.c fmul.c
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 CFLAGS = -std=c99 -O0 -g
+LDFLAGS = -lm
 
 all: $(OBJS) $(DEPS)
 
@@ -20,6 +21,12 @@ check-syntax:
 	$(CC) $(CFLAGS) -fsyntax-only $(CHK_SOURCES)
 
 test:test.o $(OBJS)
+	$(CC) $(LDFLAGS) -o $@ $^
+
+fmul_test: fmul.o fmul_test.o
+	$(CC) $(LDFLAGS) -o $@ $^
+
+fmul_binary: fmul.o fmul_binary.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
 .PHONY:all clean check-syntax
