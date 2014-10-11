@@ -7,39 +7,14 @@
 #include "float.h"
 #include <stdio.h>
 
-static int flag = 0;
-
-static uint32_t
-calcMantissa (uint32_t a,uint32_t b)
-{
-  uint32_t h_a = a >> 11,h_b = b >> 11,l_a = a & ((1 << 11) - 1),l_b = b & ((1 << 11) - 1),c;
-  int ptr = 32;
-  
-  h_a |= 1 << 12;
-  h_b |= 1 << 12;
-  c = h_a * h_b + ((h_a * l_b) >> 11) + ((l_a * h_b) >> 11) + 2;
-
-  flag = 0;  
-  while (ptr > 23) 
-    {
-      if (c & (1 << ptr)) 
-	{
-	  ++flag;
-	  c >>= 1;
-	}      
-      ptr--;      
-    }  
-  
-  return c & ((1 << 23) - 1);
-}
-
 uint32_t
 fmul (uint32_t a,uint32_t b)
 {
   const uint8_t sign = xor(getSign(a),getSign(b));
   
-  uint16_t exp;
-  uint64_t mantissa;  
+  uint32_t HH,HL,LH;
+  uint16_t exp0,exp1,exp;
+  uint32_t mantissa;  
   uint8_t msb,r = 0;  
   int i;  
   
@@ -75,16 +50,47 @@ fmul (uint32_t a,uint32_t b)
     {
       return changeSign(sign,b);
     }
-  exp = (getExp(a) + getExp(b) + 129);
+
+  // Stage 1
+  {
+    uint32_t m_a = getMant(a) , m_b = getMant(b);
+    // sign
+    exp0 = (getExp(a) + getExp(b) + 129);
+    if (!(exp0 & (1 << 8)) || exp0 == 0) 
+      exp0 = 0;  
+    uint32_t h_a = m_a >> 11,h_b = m_b >> 11,l_a = m_a & ((1 << 11) - 1),l_b = m_b & ((1 << 11) - 1);
   
-  if (!(exp & (1 << 8)) || exp == 0) 
-    exp = 0;  
+    h_a |= 1 << 12;
+    h_b |= 1 << 12;
+    HH = h_a * h_b;
+    HL = h_a * l_b;
+    LH = l_a * h_b;
+  }
   
-  mantissa = calcMantissa (getMant(a),getMant(b));
-  if (flag > 1) 
-    {
-      exp ++;
-    }
+  // Stage 2
+  {
+    mantissa = HH + ( HL >> 11) + (LH >> 11) + 2;    
+    exp1 = exp0 + 1;
+  }
+  
+  // Stage 3
+  {
+   int flag = 0;
+   int ptr = 32;
+    while (ptr > 23) 
+      {
+	if (mantissa & (1 << ptr)) 
+	  {
+	    ++flag;
+	    mantissa >>= 1;
+	  }      
+	ptr--;      
+      }  
+    if (flag > 1)
+      exp = exp1;
+    else
+      exp = exp0;
+  }
   
   mantissa &= ((1 << 23) - 1);
   exp &= ((1 << 8) - 1);
