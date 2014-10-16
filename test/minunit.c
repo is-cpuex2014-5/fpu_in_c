@@ -2,8 +2,10 @@
 #include <string.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <time.h>
 #include "minunit.h"
 #include "fmul_test.h"
+#include "fadd_test.h"
 #include "float_test.h"
 
 int tests_run = 0;
@@ -29,12 +31,15 @@ all_tests ()
   mu_run_test (constTest);
   mu_run_test (fmulIntTest);
   mu_run_test (fmulTest);
+  mu_run_test (faddIntTest);
+  mu_run_test (faddTest);
   return 0;
 }
 
 int
 main (int argc, char **argv)
 {
+  srand (time (NULL));
   char *result = all_tests ();
   if (result != 0)
     {

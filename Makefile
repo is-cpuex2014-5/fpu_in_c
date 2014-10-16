@@ -27,6 +27,9 @@ test:
 fmul_test: fmul.o fmul_test.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
+fadd_interactive: fadd.o fadd_interactive.o
+	$(CC) $(LDFLAGS) -o $@ $^
+
 fmul_binary: fmul.o fmul_binary.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
