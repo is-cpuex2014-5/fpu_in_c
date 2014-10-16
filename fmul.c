@@ -56,7 +56,7 @@ fmul (uint32_t a,uint32_t b)
     uint32_t m_a = getMant(a) , m_b = getMant(b);
     // sign
     exp0 = (getExp(a) + getExp(b) + 129);
-    if (!(exp0 & (1 << 8)) || exp0 == 0) 
+    if (!(bin(exp0,8)) || exp0 == 0) 
       exp0 = 0;  
     uint32_t h_a = m_a >> 11,h_b = m_b >> 11,l_a = m_a & ((1 << 11) - 1),l_b = m_b & ((1 << 11) - 1);
   
@@ -84,7 +84,7 @@ fmul (uint32_t a,uint32_t b)
 	    ++flag;
 	    mantissa >>= 1;
 	  }      
-	ptr--;      
+	ptr--;
       }  
     if (flag > 1)
       exp = exp1;
@@ -92,7 +92,7 @@ fmul (uint32_t a,uint32_t b)
       exp = exp0;
   }
   
-  mantissa &= ((1 << 23) - 1);
-  exp &= ((1 << 8) - 1);
+  mantissa = bina (mantissa,22,0);
+  exp = bina (exp,7,0);
   return makeFloat(sign,exp,mantissa);  
 }
