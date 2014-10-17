@@ -51,10 +51,6 @@ all_tests (void)
 	{
 	  if (!isnan (c.f))
 	    printf ("%s\t%s\t%s\n",aa,bb,cc);
-	  /* mu_assert ((sprintf */
-	  /* 	      (str, "error:%d %d %d %f %f %f %f\n", a.i, b.i, c.i, */
-	  /* 	       a.f, b.f, c.f, a.f + b.f), str), c.f == a.f + b.f || fabs(c.f - a.f + b.f) < fabs(c.f) * 0.1 */
-	  /* 	     || isnan (c.f)); */
 	}
     }
   return NULL;
@@ -64,15 +60,6 @@ int
 main (void)
 {
   char *result = all_tests ();
-  if (result != 0)
-    {
-      printf ("%s\n", result);
-    }
-  else
-    {
-      printf ("ALL TESTS PASSED\n");
-    }
-  printf ("Tests run: %d\n", tests_run);
 
   return result != 0;
 }

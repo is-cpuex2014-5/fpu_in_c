@@ -47,20 +47,12 @@ all_tests (void)
 	  cc[31 - t] = c.i & (1 << t) ? '1' : '0';
 	}
       cc[32] = '\0';
-      /* write (1,&a.i,32); */
-      /* write (1," ",1); */
-      /* write (1,&b.i,32); */
-      /* write (1," ",1); */
-      /* write (1,&c.i,32); */
+
       // 非正規化数とかはやらない
       if (isnormal (a.f) && isnormal (b.f))
 	{
 	    if (!isnan (c.f))
 		printf ("%s\t%s\t%s\n",aa,bb,cc);
-	  mu_assert ((sprintf
-		      (str, "error:%d %d %d %f %f %f %f\n", a.i, b.i, c.i,
-		       a.f, b.f, c.f, a.f + b.f), str), /* (c.f - (a.f + b.f)) <= (0.000001 * c.f) */1
-		     || isnan (c.f));
 	}
     }
   return NULL;
@@ -70,6 +62,7 @@ int
 main (void)
 {
   char *result = all_tests ();
+
   if (result != 0)
     {
       fprintf (stderr,"%s\n", result);
