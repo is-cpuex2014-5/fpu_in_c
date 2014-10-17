@@ -15,7 +15,7 @@ all: test
 	$(CC) -c -MM $(CFLAGS) $< > $@
 
 clean:
-	rm -f $(OBJS) $(DEPS) test test.o test.d
+	rm -f $(OBJS) $(DEPS) test test.o test.d testfile
 
 test:$(OBJS)
 	$(CC) -o testfile $^ $(LDFLAGS)
@@ -24,3 +24,5 @@ check-syntax:
 	$(CC) $(CFLAGS) -fsyntax-only $(CHK_SOURCES)
 
 .PHONY: all test clean check-syntax
+
+-include $(DEPS)

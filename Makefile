@@ -14,8 +14,12 @@ all: $(OBJS) $(DEPS)
 	rm -f $@
 	$(CC) -c -MM $(CFLAGS) $< > $@
 
+full_clean:clean
+	make -C test clean
+	make -C test_generator clean
+
 clean:
-	rm -f $(OBJS) $(DEPS) test test.o test.d
+	rm -f $(OBJS) $(DEPS) fadd_interactive.o fadd_interactive fmul_binary.o fmul_binary
 
 check-syntax:
 	$(CC) $(CFLAGS) -fsyntax-only $(CHK_SOURCES)
@@ -33,4 +37,6 @@ fmul_binary: fmul.o fmul_binary.o
 gen_tests:
 	make -C test_generator
 
-.PHONY:all clean check-syntax test gen_tests
+.PHONY:all clean check-syntax test gen_tests full_clean
+
+-include $(DEPS)

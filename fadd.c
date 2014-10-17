@@ -4,7 +4,7 @@
  */
 
 #include <stdio.h>
-#include "fmul.h"
+#include "fadd.h"
 #include "float.h"
 
 static int

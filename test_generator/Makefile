@@ -4,8 +4,9 @@ OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 CFLAGS = -std=c99 -O0 -g
 LDFLAGS = -lm
+TESTS = fmul_test
 
-all: $(OBJS) $(DEPS) fmul_test
+all: $(OBJS) $(DEPS) $(TESTS)
 	./gen.sh
 
 %.o:%.c %.d
@@ -16,7 +17,7 @@ all: $(OBJS) $(DEPS) fmul_test
 	$(CC) -c -MM $(CFLAGS) $< > $@
 
 clean:
-	rm -f $(OBJS) $(DEPS)
+	rm -f $(OBJS) $(DEPS) $(TESTS)
 
 check-syntax:
 	$(CC) $(CFLAGS) -fsyntax-only $(CHK_SOURCES)
@@ -25,3 +26,5 @@ fmul_test: ../fmul.o fmul_test.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
 .PHONY:all clean check-syntax 
+
+-include $(DEPS)
