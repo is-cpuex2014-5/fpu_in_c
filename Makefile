@@ -1,5 +1,5 @@
 CC = gcc
-SRCS = float.c fmul.c
+SRCS = float.c fmul.c fadd.c
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 CFLAGS = -std=c99 -O0 -g
@@ -24,13 +24,13 @@ test:
 	make -C test
 	./test/testfile
 
-fmul_test: fmul.o fmul_test.o
-	$(CC) $(LDFLAGS) -o $@ $^
-
 fadd_interactive: fadd.o fadd_interactive.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
 fmul_binary: fmul.o fmul_binary.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
-.PHONY:all clean check-syntax test
+gen_tests:
+	make -C test_generator
+
+.PHONY:all clean check-syntax test gen_tests
