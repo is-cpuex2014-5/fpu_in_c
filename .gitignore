@@ -10,3 +10,4 @@ fmul_test
 *.dat
 test/testfile
 fadd_interactive
+test_generator/fadd_test
