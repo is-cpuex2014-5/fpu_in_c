@@ -6,6 +6,7 @@
 #include "minunit.h"
 #include "fmul_test.h"
 #include "fadd_test.h"
+#include "fsub_test.h"
 #include "float_test.h"
 
 int tests_run = 0;
@@ -33,6 +34,8 @@ all_tests ()
   mu_run_test (fmulTest);
   mu_run_test (faddIntTest);
   mu_run_test (faddTest);
+  mu_run_test (fsubIntTest);
+  mu_run_test (fsubTest);
   return 0;
 }
 

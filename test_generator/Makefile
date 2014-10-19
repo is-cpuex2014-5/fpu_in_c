@@ -1,5 +1,5 @@
 CC = gcc
-SRCS = fmul_test.c fadd_test.c
+SRCS = fmul_test.c fadd_test.c fsub_test.c
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 CFLAGS = -std=c99 -O0 -g
@@ -26,6 +26,9 @@ fmul_test: ../fmul.o fmul_test.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
 fadd_test: ../fadd.o fadd_test.o
+	$(CC) $(LDFLAGS) -o $@ $^
+
+fsub_test: ../fsub.o fsub_test.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
 .PHONY:all clean check-syntax 
