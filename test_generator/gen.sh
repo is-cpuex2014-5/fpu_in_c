@@ -1,6 +1,6 @@
 #!/bin/bash
 
-tests="fmul"
+tests="fmul fadd"
 
 for a in $tests; do
     ./${a}_test > ../${a}.dat

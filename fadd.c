@@ -101,9 +101,9 @@ fadd_i (uint32_t a,uint32_t b)
   {
     if (bina (leading_zero,4,2) == 0)
       {	
-	if ( bin(m_a,1) && ( bin (m_a,0) || bin (m_a,2)))
+	if ( bin(m_a,2) && ( bin (m_a,1) || bin (m_a,3)))
 	  {
-	    m_a += 4;
+	    m_a += 8;
 	    if (carryWhenRound)
 	      {
 		m_a >>= 1;

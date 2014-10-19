@@ -1,10 +1,10 @@
 CC = gcc
-SRCS = fmul_test.c
+SRCS = fmul_test.c fadd_test.c
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 CFLAGS = -std=c99 -O0 -g
 LDFLAGS = -lm
-TESTS = fmul_test
+TESTS = fmul_test fadd_test
 
 all: $(OBJS) $(DEPS) $(TESTS)
 	./gen.sh
@@ -23,6 +23,9 @@ check-syntax:
 	$(CC) $(CFLAGS) -fsyntax-only $(CHK_SOURCES)
 
 fmul_test: ../fmul.o fmul_test.o
+	$(CC) $(LDFLAGS) -o $@ $^
+
+fadd_test: ../fadd.o fadd_test.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
 .PHONY:all clean check-syntax 
