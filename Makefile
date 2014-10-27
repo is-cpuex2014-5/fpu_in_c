@@ -1,5 +1,5 @@
 CC = gcc
-SRCS = float.c fmul.c fadd.c
+SRCS = float.c fmul.c fadd.c i2f.c
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 CFLAGS = -std=c99 -O0 -g

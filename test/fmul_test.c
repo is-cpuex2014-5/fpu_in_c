@@ -20,6 +20,30 @@ fmulAdapter (float x, float y)
 }
 
 char *
+fmulCornerTest (void)
+{
+    static char str[1000];
+    float a,b,c;
+    a = INFINITY, b = rand () / 32;
+    c = fmulAdapter (a, b);
+    mu_assert ((sprintf(str,"test of fmulCorner not passed!!\nexpected :%f\nreturned :%f\n",a*b,c),str),
+	       c == INFINITY);
+    a = INFINITY, b = 0;
+    c = fmulAdapter (a, b);
+    mu_assert ((sprintf(str,"test of fmulCorner not passed!!\nexpected :%f\nreturned :%f\n",a*b,c),str),
+	       isnan(c));
+    a = 0, b = INFINITY;
+    c = fmulAdapter (a, b);
+    mu_assert ((sprintf(str,"test of fmulCorner not passed!!\nexpected :%f\nreturned :%f\n",a*b,c),str),
+	       isnan(c));
+    a = INFINITY, b = NAN;
+    c = fmulAdapter (a, b);
+    mu_assert ((sprintf(str,"test of fmulCorner not passed!!\nexpected :%f\nreturned :%f\n",a*b,c),str),
+	       c == INFINITY);
+  return NULL;
+}
+
+char *
 fmulIntTest (void)
 {
   for (int i = 0; i < 1000; i++)

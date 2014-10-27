@@ -8,6 +8,8 @@
 #include "fadd_test.h"
 #include "fsub_test.h"
 #include "float_test.h"
+#include "i2f_test.h"
+#include "floor_test.h"
 
 int tests_run = 0;
 
@@ -32,10 +34,13 @@ all_tests ()
   mu_run_test (constTest);
   mu_run_test (fmulIntTest);
   mu_run_test (fmulTest);
+  mu_run_test (fmulCornerTest);
   mu_run_test (faddIntTest);
   mu_run_test (faddTest);
   mu_run_test (fsubIntTest);
   mu_run_test (fsubTest);
+  mu_run_test (i2fTest);
+  mu_run_test (floorTest);
   return 0;
 }
 
