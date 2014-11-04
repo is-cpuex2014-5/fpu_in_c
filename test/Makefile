@@ -1,5 +1,5 @@
 CC = gcc
-SRCS = ../float.c ../fmul.c fmul_test.c minunit.c float_test.c fadd_test.c ../fadd.c ../fsub.c fsub_test.c ../i2f.c i2f_test.c ../floor.c floor_test.c
+SRCS = ../float.c ../fmul.c fmul_test.c minunit.c float_test.c fadd_test.c ../fadd.c ../fsub.c fsub_test.c ../i2f.c i2f_test.c ../floor.c floor_test.c ../finv.c fdiv_test.c
 INCLUDE_OPTS = -I../ -I.
 CFLAGS = -std=c99 -O0 -g $(INCLUDE_OPTS)
 LDFLAGS = -lm

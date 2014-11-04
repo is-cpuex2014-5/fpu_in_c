@@ -14,7 +14,7 @@
 #define isZero(A) (getExp((A)) == 0)
 #define getSign(A) ((A) >> 31)
 #define getExp(A) (((A) >> 23) & ((1 << 8) - 1))
-#define getMant(A) ((A) & (1 << 23) - 1)
+#define getMant(A) ((A) & ((1 << 23) - 1))
 #define makeFloat(S,E,M) ((S) << 31) | ((E) << 23) | (M)
 #define xor(A,B) (((A)+(B)) & 1)
 #define changeSign(S,N) ((S) << 31) | ((N) & 0x7fffffff)
@@ -23,7 +23,7 @@
 //! binary access.AのNbit目を返す
 #define bin(A,N) (((A) >> (N)) & 1)
 //! binary arrayを返す.AのMからNbit目を返す
-#define bina(A,N,M) ((A & (((uint32_t)(1 << (N+1)) - 1))) >> (M))
+#define bina(A,N,M) ((A & (((uint64_t)((uint64_t)1 << (N+1)) - 1))) >> (M))
 
 #ifdef DEBUG
 #define dprintf printf
@@ -32,7 +32,15 @@
 #endif
 
 int32_t
-f2i (uint32_t);
+f2i (float);
 
-uint32_t
-i2f (int32_t);
+float
+i2f (uint32_t);
+
+void
+print_binary (const uint32_t);
+
+
+
+
+

@@ -2,7 +2,7 @@ CC = gcc
 SRCS = float.c fmul.c fadd.c i2f.c
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
-CFLAGS = -std=c99 -O0 -g
+CFLAGS = -std=c99 -O0 -g -Wall
 LDFLAGS = -lm
 
 all: $(OBJS) $(DEPS)
@@ -30,6 +30,12 @@ test:
 
 fadd_interactive: fadd.o fadd_interactive.o
 	$(CC) $(LDFLAGS) -o $@ $^
+finv_interactive: finv.o finv_interactive.o float.o fadd.o fmul.o
+	$(CC) $(LDFLAGS) -o $@ $^
+
+finv_dump: finv_dump.o finv.o float.o
+	$(CC) $(LDFLAGS) -o $@ $^
+
 
 fmul_binary: fmul.o fmul_binary.o
 	$(CC) $(LDFLAGS) -o $@ $^
