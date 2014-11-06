@@ -41,3 +41,13 @@ print_binary (const uint32_t a)
     }
   putchar ('\n');  
 }
+
+void
+print_binary_n (const uint64_t a,int b)
+{
+  for (int t = b - 1; t >= 0;t--) 
+    {
+      putchar (a & (1 << t) ? '1' : '0');      
+    }
+  putchar ('\n');  
+}

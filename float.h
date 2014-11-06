@@ -40,7 +40,8 @@ i2f (uint32_t);
 void
 print_binary (const uint32_t);
 
-
+void
+print_binary_n (const uint64_t,int);
 
 
 
