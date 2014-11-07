@@ -4,7 +4,7 @@ OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 CFLAGS = -std=c99 -O0 -g
 LDFLAGS = -lm
-TESTS = fmul_test fadd_test floor_test fsub_test i2f_test
+TESTS = fmul_test fadd_test floor_test fsub_test i2f_test finv_test
 
 all: $(OBJS) $(DEPS) $(TESTS)
 	./gen.sh
@@ -35,6 +35,9 @@ floor_test: ../floor.o floor_test.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
 i2f_test: ../i2f.o i2f_test.o
+	$(CC) $(LDFLAGS) -o $@ $^
+
+finv_test: ../finv.o finv_test.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
 .PHONY:all clean check-syntax 

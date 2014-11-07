@@ -38,8 +38,9 @@ table (uint16_t key)
   bool f = (mul & 1 << 24);
   mul >>= (f ? 1 : 0);
 
-  double tmp = sqrt (1/t) + sqrt (1/(t+M));
-  union uint32_f b;b.as_float = (tmp * tmp)/2;
+  union uint32_f tmp;tmp.as_float = sqrt (1/t) + sqrt (1/(t+M));
+
+  union uint32_f b;b.as_float = (tmp.as_float * tmp.as_float)/2;
   uint32_t ret_a = (getMant(a.as_int) >> 11 | 1 << 12) >> (f ? 2 : 1);
   uint32_t ret_b = getMant(b.as_int) - (getMant(mul) >> 1);
 
@@ -64,9 +65,8 @@ finv (uint32_t in)
   const uint32_t b = bina(raw_ret,22,0);
   const uint32_t l_b = getMant (in) & ((1 << 11) - 1);
   const uint32_t HL = a * l_b;
-  const uint32_t mulb = (HL >> 11);
-  
-  const uint32_t mantissa = (b - (getMant (mulb) >> 1)) << 1;
-  
-  return makeFloat (sign,expr,mantissa);  
+
+  const uint32_t mulb = (HL >> 12);
+  const uint32_t mantissa = (b - mulb);
+  return makeFloat (sign,expr,getMant(mantissa << 1));  
 }

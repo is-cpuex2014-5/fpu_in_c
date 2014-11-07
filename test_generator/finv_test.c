@@ -8,7 +8,7 @@
 
 #define mu_assert(message, test) do { if (!(test)) return message; } while (0)
 #define mu_run_test(test) do { char *message = test(); tests_run++;     \
-    if (message) return message; } while (0)
+                                if (message) return message; } while (0)
 int tests_run = 0;
 char str[1000];
 extern uint32_t finv (uint32_t a);
@@ -25,21 +25,29 @@ all_tests (void)
 
   fesetround (FE_TOWARDZERO);
   srand((unsigned)time(NULL));
-  union uint32_f a, c;
+  union uint32_f a, b, c;
   for (int i = 0; i < 2000000 ; i++)
     {
-      /* scanf ("%f",&a.f); */
-      scanf ("%x",&a.i);
+      char aa[33],cc[33];
+      a.i = (uint32_t)( (rand () << 2) + rand ());
+      if (fpclassify (a.f) != FP_NORMAL || fpclassify (b.f) != FP_NORMAL)
+	  continue;
       tests_run++;
       c.i = finv (a.i);
-      printf ("%f\n",c.f);
-      // 非正規化数とかはやらない
-      if (isnormal (a.f) && fabs (a.f) < pow (2,126))
+      if (fpclassify (c.f) != FP_NORMAL || fpclassify (a.f*b.f) != FP_NORMAL)
+      	continue;
+      for (int t = 0; t < 32;++t)
 	{
-	  mu_assert ((sprintf
-		      (str, "error:%d %d %e %e %e\n", a.i,c.i,
-		       a.f, c.f, 1/a.f), str), c.f == 1/a.f
-		     || isnan (c.f));
+	  aa[31 - t] = a.i & (1 << t) ? '1' : '0';
+	  cc[31 - t] = c.i & (1 << t) ? '1' : '0';
+	}
+      aa[32] = '\0';
+      cc[32] = '\0';
+      // 非正規化数とかはやらない
+      if (isnormal (a.f) && isnormal (b.f))
+	{
+	  if (!isnan (c.f))
+	    printf ("%s\t%s\n",aa,cc);
 	}
     }
   return NULL;
@@ -49,15 +57,6 @@ int
 main (void)
 {
   char *result = all_tests ();
-  if (result != 0)
-    {
-      printf ("%s\n", result);
-    }
-  else
-    {
-      printf ("ALL TESTS PASSED\n");
-    }
-  printf ("Tests run: %d\n", tests_run);
 
   return result != 0;
 }
