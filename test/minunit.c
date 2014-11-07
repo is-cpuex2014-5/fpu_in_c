@@ -11,6 +11,7 @@
 #include "i2f_test.h"
 #include "floor_test.h"
 #include "fdiv_test.h"
+#include "fsqrt_test.h"
 
 int tests_run = 0;
 
@@ -43,6 +44,7 @@ all_tests ()
   mu_run_test (i2fTest);
   mu_run_test (floorTest);
   mu_run_test (fdivTest);
+  mu_run_test (fsqrtTest);
   return 0;
 }
 
