@@ -42,7 +42,6 @@ fsqrt_table (uint16_t key)
       c = 1.0 / MAX;
       t = 1.0 + c * key;
     }
-  /* printf ("t c %f %f\n",t,c);   */
   
   union uint32_f a;a.as_float = (double) 1 / (sqrt (t) + sqrt(t+c));
   union uint32_f tmp;tmp.as_float = (2 * a.as_float * sqrt (t)) - 1;
@@ -60,77 +59,95 @@ fsqrt (uint32_t in)
   const uint8_t sign = getSign (in);  
   const uint16_t key = getMant (in) >> 14 | (!(getExp (in) & 1)) << 9; 
   uint8_t expr;
-  if (sign == 1)
-    {
-      if (getExp (in) == 0)
-	{
-	  return in;
-	}
-      else
-	{
-	  return m_Nan;
-	}      
-    }
-  if (getExp (in) == 0)
-    {      
-      return 0;
-    }  
-  // nan
-  if (getExp (in) == 0xff) {
-    return in;
-  }
   if (getExp (in) >= 127) {
-    expr = 127 + ((getExp (in) - 127) >> 1);      
+    expr = bina((getExp (in) + 127),8,1);      
   } else {
-    expr = 127 - ((127 - getExp (in) + 1) >> 1);      
+    expr = 63 - (bina(-getExp (in),8,1));
   }
     
     
   const uint64_t raw_ret = fsqrt_table(key);
+  assert (!bin (raw_ret,47));
   const uint32_t a = getMant(raw_ret >> 23);
+  assert (!bin (a,23));
   const uint32_t b = bina(raw_ret,22,0);
+  assert (!bin (b,23));
 
+  // 12 downto 0
   const uint32_t h_a = getMant (a) >> 11 | 1 << 12;
+  assert (!bin (h_a,13));
+  // 12 downto 0
   const uint32_t h_b = getMant (in) >> 11 | 1 << 12;
+  assert (!bin (h_b,13));
+  // 10 downto 0
   const uint16_t l_a = bina (a,10,0);
+  assert (!bin (l_a,11));
+  // 10 downto 0
   const uint16_t l_b = bina (in,10,0);
+  assert (!bin (l_b,11));
   
-  const uint32_t HH = h_a * h_b;
-  const uint32_t HL = h_a * l_b;
-  const uint32_t LH = l_a * h_b;
   // 25 downto 0
-  union uint32_f mul;
-  mul.as_int = (HH + (LH >> 11) + (HL >> 11)+ 2);
+  const uint32_t HH = h_a * h_b;
+  assert (!bin (HH,26));
+  // 23 downto 0
+  const uint32_t HL = h_a * l_b;
+  assert (!bin (HL,24));
+  // 23 downto 0
+  const uint32_t LH = l_a * h_b;
+  assert (!bin (LH,24));
+
+  // 25 downto 0
+  const uint32_t mul0 = (HH + (LH >> 11) + (HL >> 11)+ 2);
+  assert (!bin (mul0,26));
+  uint32_t mul;
   uint8_t x_expr;
-  if (bin(mul.as_int,25)) {
-    mul.as_int = bina (mul.as_int,24,2);
+  if (bin(mul0,25)) {
+    mul = bina (mul0,24,2);
     x_expr = ((getExp (in) & 1) == 0) ? 129 : 128;
   } else {
-    mul.as_int = bina (mul.as_int,23,1);
+    mul = bina (mul0,23,1);
     x_expr = ((getExp (in) & 1) == 0) ? 128 : 127;
   }
+  assert (!bin (mul,23));
 
+  // 24 downto 0
   uint32_t m_a;
   uint32_t m_b;
   if (x_expr == 129) {
-    m_a = (getMant (mul.as_int) | 1 << 23) << 1;
+    m_a = (getMant (mul) | 1 << 23) << 1;
     m_b = (getMant (b) | 1 << 23);
   } else if (x_expr == 127) {
-    m_a = (getMant (mul.as_int) | 1 << 23);
+    m_a = (getMant (mul) | 1 << 23);
     m_b = (getMant (b) | 1 << 23) << 1;
   } else {
-    m_a = (getMant (mul.as_int) | 1 << 23) << 1;
+    m_a = (getMant (mul) | 1 << 23) << 1;
     m_b = (getMant (b) | 1 << 23) << 1;
   }
+  assert (!bin (m_a,25));
+  assert (!bin (m_b,25));
 
-  uint32_t mantissa;
   //! @note 丸めを気にしなくてもtestを通るっぽいから丸めない
+  // 25 downto 0
   const uint32_t sum = m_a + m_b;
-  if (bin(m_b,24)) {
-    mantissa = bina (sum,24,2);
+  assert (!bin (sum,26));
+
+  // return
+  if (sign == 1) {
+    if (getExp (in) == 0) {
+      return in;
+    } else {
+      return m_Nan;
+    }      
+  } else if (getExp (in) == 0) {      
+    // zero
+    return 0;
+  } else if (getExp (in) == 0xff) {
+    // nan
+    return in;
+  } else if (bin(m_b,24)) {
+    return makeFloat (sign,expr,bina (sum,24,2));  
   } else {
-    mantissa = bina (sum,23,1);
+    return makeFloat (sign,expr,bina (sum,23,1));  
   }
   
-  return makeFloat (sign,expr,mantissa);  
 }
