@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "i2f.h"
+#include "fpu.h"
 #include "float.h"
 #include "minunit.h"
 #include <stdio.h>

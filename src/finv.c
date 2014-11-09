@@ -4,8 +4,6 @@
 #include <math.h>
 #include <assert.h>
 #include "float.h"
-#include "fadd.h"
-#include "fmul.h"
 
 #define M (1.0/2048)
 

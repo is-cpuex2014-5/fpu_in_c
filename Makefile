@@ -1,48 +1,22 @@
 CC = gcc
-SRCS = float.c fmul.c fadd.c i2f.c
-OBJS = $(SRCS:.c=.o)
-DEPS = $(OBJS:.o=.d)
-CFLAGS = -std=c99 -O0 -g -Wall
-LDFLAGS = -lm
 
-all: $(OBJS) $(DEPS)
-
-%.o:%.c %.d
-	$(CC) -c $(CFLAGS) -o $@ $<
-
-%.d:%.c
-	rm -f $@
-	$(CC) -c -MM $(CFLAGS) $< > $@
+all: 
+	make -C src ../libfpu.a
 
 full_clean:clean
 	make -C test clean
 	make -C test_generator clean
+	rm *.dat GPATH GTAGS GRTAGS
 
 clean:
-	rm -f $(OBJS) $(DEPS) fadd_interactive.o fadd_interactive fmul_binary.o fmul_binary
-
-check-syntax:
-	$(CC) $(CFLAGS) -fsyntax-only $(CHK_SOURCES)
+	make -C src clean
 
 test:
+	make -C src ../libfpu.a
 	make -C test
 	./test/testfile
-
-fadd_interactive: fadd.o fadd_interactive.o
-	$(CC) $(LDFLAGS) -o $@ $^
-finv_interactive: finv.o finv_interactive.o float.o fadd.o fmul.o
-	$(CC) $(LDFLAGS) -o $@ $^
-
-finv_dump: finv_dump.o finv.o float.o
-	$(CC) $(LDFLAGS) -o $@ $^
-
-
-fmul_binary: fmul.o fmul_binary.o
-	$(CC) $(LDFLAGS) -o $@ $^
 
 gen_tests:
 	make -C test_generator
 
 .PHONY:all clean check-syntax test gen_tests full_clean
-
--include $(DEPS)

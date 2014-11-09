@@ -3,7 +3,7 @@ SRCS = fmul_test.c fadd_test.c fsub_test.c floor_test.c i2f_test.c
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 CFLAGS = -std=c99 -O0 -g
-LDFLAGS = -lm
+LDFLAGS = -L.. -lm -lfpu
 TESTS = fmul_test fadd_test floor_test fsub_test i2f_test finv_test
 
 all: $(OBJS) $(DEPS) $(TESTS)
@@ -22,23 +22,8 @@ clean:
 check-syntax:
 	$(CC) $(CFLAGS) -fsyntax-only $(CHK_SOURCES)
 
-fmul_test: ../fmul.o fmul_test.o
-	$(CC) $(LDFLAGS) -o $@ $^
-
-fadd_test: ../fadd.o fadd_test.o
-	$(CC) $(LDFLAGS) -o $@ $^
-
-fsub_test: ../fsub.o fsub_test.o
-	$(CC) $(LDFLAGS) -o $@ $^
-
-floor_test: ../floor.o floor_test.o
-	$(CC) $(LDFLAGS) -o $@ $^
-
-i2f_test: ../i2f.o i2f_test.o
-	$(CC) $(LDFLAGS) -o $@ $^
-
-finv_test: ../finv.o finv_test.o
-	$(CC) $(LDFLAGS) -o $@ $^
+%: %.o
+	$(CC) -o $@ $^ $(LDFLAGS)
 
 .PHONY:all clean check-syntax 
 

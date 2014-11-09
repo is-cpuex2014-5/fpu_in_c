@@ -1,0 +1,24 @@
+CC = gcc
+SRCS = fadd.c fsub.c fmul.c finv.c float.c i2f.c floor.c fsqrt.c
+OBJS = $(SRCS:.c=.o)
+DEPS = $(OBJS:.o=.d)
+CFLAGS = -std=c99 -O0 -g -Wall -I.. -fPIC
+LDFLAGS = -lm
+PRODUCTS = ../libfpu.a
+
+all: $(PRODUCTS)
+
+../libfpu.a: $(OBJS)
+	ar rcs $@ $^
+
+%.o:%.c %.d
+	$(CC) -c $(CFLAGS) -o $@ $<
+
+%.d:%.c
+	rm -f $@
+	$(CC) -c -MM $(CFLAGS) $< > $@
+
+clean:
+	rm -f *.o *.d
+
+-include $(DEPS)

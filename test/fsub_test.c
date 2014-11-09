@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "fsub.h"
+#include "fpu.h"
 #include "minunit.h"
 
 float

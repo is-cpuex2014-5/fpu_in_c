@@ -4,7 +4,7 @@
  */
 
 #include <stdio.h>
-#include "fsub.h"
+#include "fpu.h"
 #include "float.h"
 
 static int

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "minunit.h"
-#include "fdiv.h"
+#include "fpu.h"
 
 float
 fdivAdapter (float x, float y)

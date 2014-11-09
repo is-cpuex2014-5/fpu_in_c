@@ -4,14 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "minunit.h"
-#include "fmul_test.h"
-#include "fadd_test.h"
-#include "fsub_test.h"
-#include "float_test.h"
-#include "i2f_test.h"
-#include "floor_test.h"
-#include "fdiv_test.h"
-#include "fsqrt_test.h"
+#include "fpu_tests.h"
 
 int tests_run = 0;
 

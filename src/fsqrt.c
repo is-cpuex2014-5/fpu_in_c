@@ -4,8 +4,6 @@
 #include <math.h>
 #include <assert.h>
 #include "float.h"
-#include "fadd.h"
-#include "fmul.h"
 
 #define MAX 512
 

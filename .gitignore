@@ -1,12 +1,12 @@
 *.d
 *.o
+*.a
 *~
-a.out
 GPATH
 GTAGS
 GRTAGS
-fmul_binary
-fmul_test
+tools/fmul_binary
+tools/fmul_test
 *.dat
 test/testfile
 fadd_interactive

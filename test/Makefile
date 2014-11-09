@@ -1,12 +1,16 @@
 CC = gcc
-SRCS = ../float.c ../fmul.c fmul_test.c minunit.c float_test.c fadd_test.c ../fadd.c ../fsub.c fsub_test.c ../i2f.c i2f_test.c ../floor.c floor_test.c ../finv.c fdiv_test.c ../fsqrt.c fsqrt_test.c
-INCLUDE_OPTS = -I../ -I.
+SRCS = fmul_test.c minunit.c float_test.c fadd_test.c fsub_test.c i2f_test.c floor_test.c fdiv_test.c fsqrt_test.c
+INCLUDE_OPTS = -I../ -I. -I../src
 CFLAGS = -std=c99 -O0 -g $(INCLUDE_OPTS)
-LDFLAGS = -lm
+LDFLAGS = -L.. -lm -lfpu
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 
 all: test
+
+../libfpu.a:
+	make -C .. libfpu.so
+
 %.o:%.c %.d
 	$(CC) -c $(CFLAGS) -o $@ $<
 
@@ -17,8 +21,8 @@ all: test
 clean:
 	rm -f $(OBJS) $(DEPS) test test.o test.d testfile
 
-test:$(OBJS)
-	$(CC) -o testfile $^ $(LDFLAGS)
+test:$(OBJS) ../libfpu.a
+	$(CC) -o testfile $(OBJS) $(LDFLAGS)
 
 check-syntax:
 	$(CC) $(CFLAGS) -fsyntax-only $(CHK_SOURCES)

@@ -3,7 +3,7 @@
   @brief floating multiply
 */
 
-#include "fmul.h"
+#include "fpu.h"
 #include "float.h"
 #include <stdio.h>
 
@@ -15,8 +15,6 @@ fmul (uint32_t a,uint32_t b)
   uint32_t HH,HL,LH;
   uint16_t exp0,exp1,exp;
   uint32_t mantissa;  
-  uint8_t msb,r = 0;  
-  int i;  
   
   if (isInf(a))
     {
