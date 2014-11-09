@@ -15,7 +15,7 @@ i2fTest (void)
 #define max(A,B) ((A) > (B) ? (A) : (B))
       mu_assert ((sprintf
 		  (str,
-		   "test of i2f not passed!!\nexpected :%d\nreturned :%d\n%d %d %d",
+		   "test of i2f not passed!!\nexpected :%d\nreturned :%e\n%e %e %e",
 		   a , i2f(c),i2f (c),i2f (c+1),i2f (c-1)), str),a != 0 &&  abs(i2f (c) - a) <= abs(i2f (c+1) - a) && abs(i2f (c) - a) <= abs(i2f (c-1) - a));
     }
 

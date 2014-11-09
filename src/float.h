@@ -25,12 +25,6 @@
 //! binary arrayを返す.AのMからNbit目を返す
 #define bina(A,N,M) ((A & (((uint64_t)((uint64_t)1 << (N+1)) - 1))) >> (M))
 
-#ifdef DEBUG
-#define dprintf printf
-#else
-#define dprintf
-#endif
-
 int32_t
 f2i (float);
 

@@ -6,7 +6,7 @@ all:
 full_clean:clean
 	make -C test clean
 	make -C test_generator clean
-	rm *.dat GPATH GTAGS GRTAGS
+	rm -f *.dat GPATH GTAGS GRTAGS
 
 clean:
 	make -C src clean
