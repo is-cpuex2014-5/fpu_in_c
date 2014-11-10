@@ -41,3 +41,6 @@ fsubIntTest (void);
 
 char *
 i2fTest (void);
+
+char *
+feqTest (void);

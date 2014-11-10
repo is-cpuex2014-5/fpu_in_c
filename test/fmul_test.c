@@ -63,7 +63,9 @@ fmulTest (void)
 {
   for (int i = 0; i < 1000; i++)
     {
+      static char str[1000];
       float a = frand (), b = frand ();
+      const float epsilon = pow (2,127);
       // 非正規化数とかはやらない
       if (fpclassify (a) != FP_NORMAL || fpclassify (b) != FP_NORMAL)
 	continue;
@@ -71,9 +73,10 @@ fmulTest (void)
       if (fpclassify (c) != FP_NORMAL || fpclassify (a * b) != FP_NORMAL)
 	continue;
 #define max(A,B) ((A) > (B) ? (A) : (B))
-      mu_assert ("test of fmul not passed!!", fabs (a) >= pow (2, 127)
-		 || fabs (b) >= pow (2, 127) || fabs (a * b) >= pow (2, 127)
-		 || fabs (c - a * b) < max (a * b * pow (2, -22),
+      mu_assert ((sprintf
+		  (str,"test of fmul not passed!!\nexpected %f\nreturned %f",a * b,c),str), fabs (a) >= epsilon
+		 || fabs (b) >= epsilon || fabs (a * b) >= epsilon
+		 || fabs (c - a * b) < max (fabs(a * b) * pow (2, -22),
 					    pow (2, -126)));
     }
 

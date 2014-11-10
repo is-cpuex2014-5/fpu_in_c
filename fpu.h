@@ -5,6 +5,7 @@
 
 #pragma once
 #include <stdint.h>
+#include <stdbool.h>
 
 uint32_t
 fadd (uint32_t,uint32_t);
@@ -28,3 +29,6 @@ h_i2f (uint32_t);
 
 uint32_t
 h_floor (uint32_t);
+
+bool
+feq (uint32_t,uint32_t);

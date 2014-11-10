@@ -16,7 +16,7 @@ frand (void)
     float as_float;
     int32_t as_int;
   } unit;
-  unit.as_int = rand ();
+  unit.as_int = rand () | rand () << 16;
 
   return unit.as_float;
 }
@@ -38,11 +38,12 @@ all_tests ()
   mu_run_test (floorTest);
   mu_run_test (fdivTest);
   mu_run_test (fsqrtTest);
+  mu_run_test (feqTest);
   return 0;
 }
 
 int
-main (int argc, char **argv)
+main (void)
 {
   srand (time (NULL));
   char *result = all_tests ();

@@ -7,11 +7,13 @@
 
 static int
 getSignTestUnit (float test)
-{
+{    
   uint32_t *a;
   a = (uint32_t *) & test;
+  
+  int ret = (test < 0) == getSign (*a) || test == 0 || isnan (test);
 
-  return test ? getSign (*a) == test < 0 : 1;
+  return ret;
 }
 
 char *
