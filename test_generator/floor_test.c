@@ -29,7 +29,7 @@ all_tests (void)
   for (int i = 0; i < 2000000 ; i++)
     {
       char aa[33],cc[33];
-      a.i = (uint32_t)( (rand () << 2) + rand ());
+      a.i = rand () | rand () << 16;
       if (fpclassify (a.f) != FP_NORMAL)
 	  continue;
       tests_run++;

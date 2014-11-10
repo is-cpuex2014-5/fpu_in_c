@@ -1,13 +1,13 @@
 CC = gcc
 LD = $(CC)
-PRODUCTS = finv_table_gen
-CFLAGS = -std=c99 -O0 -g $(INCLUDE_OPTS)
-LDFLAGS = -lm
+PRODUCTS = finv_table_gen floor
+CFLAGS = -std=c99 -O0 -g -I.. -I../src
+LDFLAGS = -L.. -lm -lfpu
 
 all:$(PRODUCTS)
 
-finv_table_gen: finv_table_gen.o ../finv.o ../float.o
-	$(LD) $(LDFLAGS) $^ -o $@
+%:%.o
+	$(LD) $^ -o $@ $(LDFLAGS)
 
 %.o:%.c %.d
 	$(CC) -c $(CFLAGS) -o $@ $<

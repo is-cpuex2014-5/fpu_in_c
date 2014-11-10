@@ -18,14 +18,13 @@ h_floor (uint32_t in)
     {
       mantissa >>= (127 + 23 - expr);
     }
-
   if (!sign)
     {
       return mantissa;
     }
   else
     {
-      return ~mantissa;
+      return ~(mantissa) + 1;
     }
 }
 
