@@ -1,5 +1,5 @@
 CC = gcc
-SRCS = fadd.c fsub.c fmul.c finv.c float.c i2f.c floor.c fsqrt.c feq.c
+SRCS = fadd.c fsub.c fmul.c finv.c float.c i2f.c floor.c fsqrt.c feq.c flt.c
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 CFLAGS = -std=c99 -O0 -g -Wall -I.. -fPIC

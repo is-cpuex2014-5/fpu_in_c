@@ -32,3 +32,6 @@ h_floor (uint32_t);
 
 bool
 feq (uint32_t,uint32_t);
+
+bool
+flt (uint32_t,uint32_t);
