@@ -46,7 +46,7 @@ fsqrt_table (uint16_t key)
 
   union uint32_f b;b.as_float = (2 - tmp.as_float * tmp.as_float) / (8 * a.as_float);
 
-  return (uint64_t) a.as_int << 23 | getMant(b.as_int);
+  return (uint64_t) getMant(a.as_int) << 23 | getMant(b.as_int);
 }
 
 
@@ -55,17 +55,11 @@ uint32_t
 fsqrt (uint32_t in)
 {
   const uint8_t sign = getSign (in);  
-  const uint16_t key = getMant (in) >> 14 | (!(getExp (in) & 1)) << 9; 
-  uint8_t expr;
-  if (getExp (in) >= 127) {
-    expr = bina((getExp (in) + 127),8,1);      
-  } else {
-    expr = 63 - (bina(-getExp (in),8,1));
-  }
-    
+  const uint16_t key = getMant (in) >> 14 | (!(getExp (in) & 1)) << 9;
+  const uint8_t expr = bina((getExp (in) + 127),8,1);      
     
   const uint64_t raw_ret = fsqrt_table(key);
-  assert (!bin (raw_ret,47));
+  assert (!bin (raw_ret,46));
   const uint32_t a = getMant(raw_ret >> 23);
   assert (!bin (a,23));
   const uint32_t b = bina(raw_ret,22,0);
@@ -107,6 +101,7 @@ fsqrt (uint32_t in)
     x_expr = ((getExp (in) & 1) == 0) ? 128 : 127;
   }
   assert (!bin (mul,23));
+  printf ("%x %x\n",mul0,x_expr);  
 
   // 24 downto 0
   uint32_t m_a;

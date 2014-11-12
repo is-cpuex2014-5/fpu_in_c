@@ -11,3 +11,9 @@ tools/fmul_test
 test/testfile
 fadd_interactive
 test_generator/*_test
+tools/floor
+tools/fsqrt
+tools/finv
+tools/finv_table_gen
+tools/fsqrt_table_gen
+tools/fsqrt_table_interactive

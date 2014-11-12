@@ -1,10 +1,11 @@
 CC = gcc
 LD = $(CC)
-PRODUCTS = finv_table_gen floor
+PRODUCTS = finv_table_gen floor fsqrt_table_gen fsqrt_table_interactive fsqrt
+OBJS = $(PRODUCTS:%=%.o)
 CFLAGS = -std=c99 -O0 -g -I.. -I../src
 LDFLAGS = -L.. -lm -lfpu
 
-all:$(PRODUCTS)
+all:$(OBJS) $(PRODUCTS)
 
 %:%.o
 	$(LD) $^ -o $@ $(LDFLAGS)
@@ -15,3 +16,6 @@ all:$(PRODUCTS)
 %.d:%.c
 	rm -f $@
 	$(CC) -c -MM $(CFLAGS) $< > $@
+
+clean:
+	rm -f $(PRODUCTS) *.d *.o

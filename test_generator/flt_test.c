@@ -35,7 +35,7 @@ gen_test (void)
 	}
       aa[32] = '\0';
       bb[32] = '\0';
-      cc[0]  = c;
+      cc[0]  = c ? '1' : '0';
       cc[1]  = '\0';
       // 非正規化数とかはやらない
       if (isnormal (a.f) && isnormal((b.f)))
