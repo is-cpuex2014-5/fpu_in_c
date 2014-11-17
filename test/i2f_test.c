@@ -24,10 +24,12 @@ i2fTest (void)
 
 }
 
+	
+
 char *
 i2fWholeTest (void)
 {
-  for (int i = INT32_MIN; i <= INT32_MAX; i++)
+  for (int32_t i = INT32_MIN; i < INT32_MAX; i++)
     {
       union {
 	int32_t s;
@@ -39,7 +41,7 @@ i2fWholeTest (void)
 #define max(A,B) ((A) > (B) ? (A) : (B))
       mu_assert ((sprintf
 		  (str,
-		   "test of i2f not passed!!\nexpected :%d\nreturned :%e\n%e %e %e",
+		   "test of i2fWhole not passed!!\nexpected :%d\nreturned :%e\n%e %e %e",
 		   a.s , i2f(c),i2f (c),i2f (c+1),i2f (c-1)), str),abs(i2f (c) - a.s) <= abs(i2f (c+1) - a.s) && abs(i2f (c) - a.s) <= abs(i2f (c-1) - a.s));
     }
 
