@@ -14,7 +14,7 @@ frand (void)
   union
   {
     float as_float;
-    int32_t as_int;
+    uint32_t as_int;
   } unit;
   unit.as_int = rand () | rand () << 16;
 
@@ -39,6 +39,7 @@ all_tests ()
   mu_run_test (fdivTest);
   mu_run_test (fsqrtTest);
   mu_run_test (feqTest);
+  mu_run_test (fltTest); 
   return 0;
 }
 

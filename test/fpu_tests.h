@@ -44,3 +44,6 @@ i2fTest (void);
 
 char *
 feqTest (void);
+
+char *
+fltTest (void);
