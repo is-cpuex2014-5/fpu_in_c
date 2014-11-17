@@ -19,8 +19,7 @@ fltTest (void)
     {
       static char str[1000];
       float a = frand (), b = frand ();
-      if (a < 0)
-	  printf ("%f\n",b);
+
       // 非正規化数とかはやらない
       if (fpclassify (a) != FP_NORMAL || fpclassify (b) != FP_NORMAL)
 	continue;

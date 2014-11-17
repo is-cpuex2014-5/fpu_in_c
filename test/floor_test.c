@@ -11,7 +11,7 @@ floorTest (void)
   for (int i = 0; i < 1000; i++)
     {
       static char str[1000];
-      uint32_t a = rand () | rand () << 16;
+      uint32_t a = frand ();
       const uint32_t c = h_floor(a);
       if (fabs(i2f (a)) >= pow (2,31) || isnan (i2f(a)))
 	  continue;
