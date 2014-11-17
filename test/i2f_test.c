@@ -10,7 +10,7 @@ i2fTest (void)
   for (int i = 0; i < 1000; i++)
     {
       static char str[1000];
-      uint32_t a = rand () / 32;
+      uint32_t a = rand () | rand () << 15;
       uint32_t c = h_i2f(a);
 #define max(A,B) ((A) > (B) ? (A) : (B))
       mu_assert ((sprintf

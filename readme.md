@@ -35,6 +35,8 @@ Sample
 feqの仕様
 =========
 * 等しかったらtrueを返す
+* feq Nan Nan := false
+* feq -0 0 := true
 
 fltの仕様
 =========

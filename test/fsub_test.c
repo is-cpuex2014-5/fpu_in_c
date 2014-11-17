@@ -52,7 +52,7 @@ fsubTest (void)
       if (fpclassify (a) != FP_NORMAL || fpclassify (b) != FP_NORMAL)
 	continue;
       float c = fsubAdapter (a, b);
-      if (fpclassify (c) != FP_NORMAL || fpclassify (a - b) != FP_NORMAL)
+      if (fpclassify (a - b) != FP_NORMAL)
 	continue;
 #define max(A,B) ((A) > (B) ? (A) : (B))
       mu_assert ((sprintf

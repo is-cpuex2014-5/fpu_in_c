@@ -101,7 +101,7 @@ fsqrt (uint32_t in)
     x_expr = ((getExp (in) & 1) == 0) ? 128 : 127;
   }
   assert (!bin (mul,23));
-  printf ("%x %x\n",mul0,x_expr);  
+//  printf ("%x %x\n",mul0,x_expr);  
 
   // 24 downto 0
   uint32_t m_a;

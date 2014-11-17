@@ -25,7 +25,7 @@ faddIntTest (void)
   for (int i = 0; i < 1000; i++)
     {
       static char str[1000];
-      float a = rand () / 32, b = rand () / 32;
+      float a = rand (), b = rand ();
       float c = faddAdapter (a, b);
 #define max(A,B) ((A) > (B) ? (A) : (B))
       mu_assert ((sprintf
@@ -44,7 +44,7 @@ faddIntTest (void)
 char *
 faddTest (void)
 {
-  for (int i = 0; i < 1000; i++)
+  for (int i = 0; i < 100000; i++)
     {
       static char str[1000];
       float a = frand (), b = frand ();
@@ -52,12 +52,12 @@ faddTest (void)
       if (fpclassify (a) != FP_NORMAL || fpclassify (b) != FP_NORMAL)
 	continue;
       float c = faddAdapter (a, b);
-      if (fpclassify (c) != FP_NORMAL || fpclassify (a + b) != FP_NORMAL)
+      if (fpclassify (a + b) != FP_NORMAL)
 	continue;
 #define max(A,B) ((A) > (B) ? (A) : (B))
       mu_assert ((sprintf
 		  (str,
-		   "test of faddInt not passed!!\nexpected :%f\nreturned :%f\n",
+		   "test of fadd not passed!!\nexpected :%f\nreturned :%f\n",
 		   a + b, c), str), fabs (a) >= pow (2, 127)
 		 || fabs (b) >= pow (2, 127) || fabs (a + b) >= pow (2, 127)
 		 || fabs (c - (a + b)) <
