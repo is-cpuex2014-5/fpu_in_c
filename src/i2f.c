@@ -40,6 +40,7 @@ h_i2f (uint32_t in)
       /* const uint8_t f = !bin (in,25); */
       in += R &&(G || ulp );
 
+      /* printf ("R %d\n",R); */
       /* printf ("sign %d,s = %d,in = %d %x\n",sign,s,in,in); */
       /* if ((f && bin (in,25) == 1) || (!f && bin (in,25) == 0)) { */
       if (bina (in,23,0) == 0) {

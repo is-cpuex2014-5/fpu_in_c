@@ -21,14 +21,17 @@ union uint32_f
 char *
 all_tests (void)
 {
-
+  puts ("run 20ms");
   fesetround (FE_TOWARDZERO);
   srand((unsigned)time(NULL));
   union uint32_f a, c;
-  for (int i = 0; i < 2000000 ; i++)
+  for (uint32_t i = 0; i < UINT32_MAX/100 ; i++)
     {
+      fprintf (stderr,"%d\n",i);
       char aa[33],cc[33];
-      a.i = (uint32_t)( (rand () << 2) + rand ());
+      a.i = i;
+      if (i == 0)
+	a.i = 0xf0000000;
       if (fpclassify (a.f) != FP_NORMAL)
 	  continue;
       c.i = h_i2f (a.i);
