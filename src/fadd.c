@@ -37,6 +37,7 @@ fadd_i (uint32_t a,uint32_t b)
 
   uint8_t e_a = getExp(a),e_b = getExp (b);
   uint32_t m_a = getMant (a),m_b = getMant (b);
+
   // Stage 1
   {
     m_a += (1 << 23);
@@ -116,6 +117,11 @@ fadd_i (uint32_t a,uint32_t b)
   exp = bina(e_a,7,0);
   mantissa = bina (m_a,25,3);  
   
+  if (e_a == 0)
+      return b;
+  if (e_b == 0)
+      return a;
+
   return makeFloat(sign,exp,mantissa);    
 }
 

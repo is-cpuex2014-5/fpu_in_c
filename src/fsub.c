@@ -116,6 +116,11 @@ fsub_i (uint32_t a,uint32_t b)
 
   exp = bina(e_a,7,0);
   mantissa = bina (m_a,25,3);  
+
+  if (e_a == 0)
+      return makeFloat (!getSign(b),e_b,m_b);
+  if (e_b == 0)
+      return a;
   
   return makeFloat(sign,exp,mantissa);    
 }

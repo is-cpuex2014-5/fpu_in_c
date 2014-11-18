@@ -22,6 +22,9 @@ char *
 floorTest (void);
 
 char *
+floorWholeTest (void);
+
+char *
 fmulTest (void);
 
 char *
