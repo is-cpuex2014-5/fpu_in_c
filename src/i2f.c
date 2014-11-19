@@ -28,7 +28,6 @@ h_i2f (uint32_t in)
   /* printf ("in = %d %x\n",in,in); */
   in = sign ? (~(bina (in,30,0))) + 1: bina (in,30,0);  
   int s = ZLC (in);
-  printf ("sign %d,s = %d,in = %d %x\n",sign,s,in,in);
   uint8_t expr = 127 + 30 - s;
   if (s < 7)
     {
