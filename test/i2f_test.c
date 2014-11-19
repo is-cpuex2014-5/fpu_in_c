@@ -42,8 +42,10 @@ i2fWholeTest (void)
 #define max(A,B) ((A) > (B) ? (A) : (B))
       mu_assert ((sprintf
 		  (str,
-		   "test of i2fWhole not passed!!\nexpected :%d\nreturned :%e\n%e %e %e",
-		   a.s , i2f(c),i2f (c),i2f (c+1),i2f (c-1)), str),fabs(i2f (c) - a.s) <= fabs(i2f (c+1) - a.s) && fabs(i2f (c) - a.s) <= fabs(i2f (c-1) - a.s));
+		   "test of i2fWhole not passed!!\nexpected :%d\nreturned :%g\n%g %g %g",
+		   a.s , i2f(c),i2f (c),i2f (c+1),i2f (c-1)), str),
+		 (isnan (i2f (c+1)) || fabs(i2f (c) - a.s) <= fabs(i2f (c+1) - a.s)) && 
+		 (isnan (i2f (c-1)) || fabs(i2f (c) - a.s) <= fabs(i2f (c-1) - a.s)));
     }
 
   return NULL;
