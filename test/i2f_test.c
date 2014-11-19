@@ -4,6 +4,7 @@
 #include "minunit.h"
 #include <stdio.h>
 #include <stdint.h>
+#include <math.h>
 
 char *
 i2fTest (void)
@@ -42,7 +43,7 @@ i2fWholeTest (void)
       mu_assert ((sprintf
 		  (str,
 		   "test of i2fWhole not passed!!\nexpected :%d\nreturned :%e\n%e %e %e",
-		   a.s , i2f(c),i2f (c),i2f (c+1),i2f (c-1)), str),abs(i2f (c) - a.s) <= abs(i2f (c+1) - a.s) && abs(i2f (c) - a.s) <= abs(i2f (c-1) - a.s));
+		   a.s , i2f(c),i2f (c),i2f (c+1),i2f (c-1)), str),fabs(i2f (c) - a.s) <= fabs(i2f (c+1) - a.s) && fabs(i2f (c) - a.s) <= fabs(i2f (c-1) - a.s));
     }
 
   return NULL;

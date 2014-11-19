@@ -23,11 +23,12 @@ ZLC (uint32_t a)
 uint32_t
 h_i2f (uint32_t in)
 {
+  const bool isZero = !in;
   const uint8_t sign = bin (in,31);
   /* printf ("in = %d %x\n",in,in); */
   in = sign ? (~(bina (in,30,0))) + 1: bina (in,30,0);  
   int s = ZLC (in);
-  /* printf ("sign %d,s = %d,in = %d %x\n",sign,s,in,in); */
+  printf ("sign %d,s = %d,in = %d %x\n",sign,s,in,in);
   uint8_t expr = 127 + 30 - s;
   if (s < 7)
     {
@@ -54,7 +55,9 @@ h_i2f (uint32_t in)
       in <<= s - 7;
     }
 
-  in = bina (in,22,0);  
+  in = bina (in,22,0);
+  if (isZero)
+    return 0;
   return makeFloat (sign,expr,in);  
 }
 

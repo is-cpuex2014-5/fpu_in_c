@@ -47,8 +47,8 @@ floorWholeTest (void)
 #define max(A,B) ((A) > (B) ? (A) : (B))
       mu_assert ((sprintf
 		  (str,
-		   "test of floor not passed!!\nexpected :%d\nreturned :%d\n%d %d %d",
-		   (int) i2f(a.u) , c.u,c.u,c.u+1,c.u-1), str),c.s == (int)i2f (a.u));
+		   "test of floorWhole not passed!!\nexpected :%d\nreturned :%d\n%d %d %d",
+		   (int) i2f(a.u) , c.u,(int) i2f(a.u),(int) i2f(a.u+1),(int) i2f(a.u-1)), str),c.s == (int)i2f (a.u));
     }
   return NULL;
 
