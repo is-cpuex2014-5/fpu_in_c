@@ -8,7 +8,7 @@ LDFLAGS = -L.. -lm -lfpu
 
 all:$(OBJS) $(PRODUCTS)
 
-%:%.o
+%:%.o ../libfpu.a
 	$(LD) $^ -o $@ $(LDFLAGS)
 
 %.o:%.c %.d
