@@ -38,6 +38,11 @@ fsub_i (uint32_t a,uint32_t b)
 
   uint8_t e_a = getExp(a),e_b = getExp (b);
   uint32_t m_a = getMant (a),m_b = getMant (b);
+  if (e_a == 0)
+      return makeFloat (!getSign(b),e_b,m_b);
+  if (e_b == 0)
+      return a;
+
   // Stage 1
   {
     m_a += (1 << 23);
@@ -69,7 +74,7 @@ fsub_i (uint32_t a,uint32_t b)
     // Step 5
     leading_zero = ZLC (m_a);
     carryWhenRound = (bina (m_a,26 - leading_zero,4 - leading_zero) == (1 << 23) - 1);    
-
+    /* printf ("leading %d\n",leading_zero); */
     switch (bina (leading_zero,1,0))
       {
       case 0:
@@ -104,23 +109,23 @@ fsub_i (uint32_t a,uint32_t b)
       {
 	m_a <<= (bina (leading_zero,4,2) << 2);	
       }
-    
-    e_a -= leading_zero - 1;
+//    printf ("e:%d\n",e_a);
+//    printf ("e:%d\n",e_a);
     if (e_a < (leading_zero - 1) || leading_zero >= 26)
       {
-	e_a = 0;
+    	e_a = 0;
+      }
+    else
+      {
+	e_a -= leading_zero - 1;
       }    
   }
+//  printf ("e:%d\n",e_a);
 
   // Step 6
 
   exp = bina(e_a,7,0);
   mantissa = bina (m_a,25,3);  
-
-  if (e_a == 0)
-      return makeFloat (!getSign(b),e_b,m_b);
-  if (e_b == 0)
-      return a;
   
   return makeFloat(sign,exp,mantissa);    
 }
