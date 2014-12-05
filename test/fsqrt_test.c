@@ -10,25 +10,23 @@ fsqrt (uint32_t);
 char *
 fsqrtTest (void)
 {
-  int t;
-  for (int i = 0; i < 100000; i++)
+  for (uint32_t i = 0; i < UINT32_MAX; i++)
     {
       static char str[1000];
-      uint32_t a = rand ();
+      uint32_t a = i;
       uint32_t c = fsqrt(a);
 #define max(A,B) ((A) > (B) ? (A) : (B))
       // 非正規化数は除く;
       if (getExp (a) == 0)
-      {
+	{
 	  continue;
-      }
+	}
       if (isnan (i2f(a)))
 	{
 	  continue;
 	}
-      if ( getExp(f2i(sqrt(i2f(a)))) == 0xff) {
-	  printf ("a ,sqrt (a) : %e %e\n",i2f(a),sqrt(i2f(a)));
-      }
+      mu_assert("special case does not passed!!\n", a != 0x3F800001 || c == 0x3F800000);
+
       mu_assert ((sprintf
       		  (str,
       		   "test of fsqrt not passed!!\ncase %d\nexpected :%d\nreturned :%d\nexpected :%x %x\nreturned :%x %x\n",

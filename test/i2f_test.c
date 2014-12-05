@@ -9,27 +9,6 @@
 char *
 i2fTest (void)
 {
-  for (int i = 0; i < 1000; i++)
-    {
-      static char str[1000];
-      uint32_t a = rand () | rand () << 15;
-      uint32_t c = h_i2f(a);
-#define max(A,B) ((A) > (B) ? (A) : (B))
-      mu_assert ((sprintf
-		  (str,
-		   "test of i2f not passed!!\nexpected :%d\nreturned :%e\n%e %e %e",
-		   a , i2f(c),i2f (c),i2f (c+1),i2f (c-1)), str),abs(i2f (c) - a) <= abs(i2f (c+1) - a) && abs(i2f (c) - a) <= abs(i2f (c-1) - a));
-    }
-
-  return NULL;
-
-}
-
-	
-
-char *
-i2fWholeTest (void)
-{
   for (int32_t i = INT32_MIN; i < INT32_MAX; i++)
     {
       union {
@@ -42,7 +21,7 @@ i2fWholeTest (void)
 #define max(A,B) ((A) > (B) ? (A) : (B))
       mu_assert ((sprintf
 		  (str,
-		   "test of i2fWhole not passed!!\nexpected :%d\nreturned :%g\n%g %g %g",
+		   "test of i2f not passed!!\nexpected :%d\nreturned :%g\n%g %g %g",
 		   a.s , i2f(c),i2f (c),i2f (c+1),i2f (c-1)), str),
 		 (isnan (i2f (c+1)) || fabs(i2f (c) - a.s) <= fabs(i2f (c+1) - a.s)) && 
 		 (isnan (i2f (c-1)) || fabs(i2f (c) - a.s) <= fabs(i2f (c-1) - a.s)));

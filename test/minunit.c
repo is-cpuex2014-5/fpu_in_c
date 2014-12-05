@@ -35,13 +35,12 @@ all_tests ()
   mu_run_test (fsubIntTest);
   mu_run_test (fsubTest);
   mu_run_test (i2fTest);
-  mu_run_test (i2fWholeTest);
   mu_run_test (floorTest);
   mu_run_test (floorWholeTest);
   mu_run_test (fdivTest);
   mu_run_test (fsqrtTest);
   mu_run_test (feqTest);
-  mu_run_test (fltTest); 
+  mu_run_test (fltTest);
   return 0;
 }
 

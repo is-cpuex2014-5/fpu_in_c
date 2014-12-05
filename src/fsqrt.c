@@ -52,7 +52,7 @@ fsqrt_table (uint16_t key)
 
 
 uint32_t
-fsqrt (uint32_t in)
+fsqrt (const uint32_t in)
 {
   const uint8_t sign = getSign (in);  
   const uint16_t key = getMant (in) >> 14 | (!(getExp (in) & 1)) << 9;
@@ -131,16 +131,19 @@ fsqrt (uint32_t in)
     } else {
       return m_Nan;
     }      
-  } else if (getExp (in) == 0) {      
+  } else if (getExp (in) == 0) {
     // zero
     return 0;
   } else if (getExp (in) == 0xff) {
     // nan
     return in;
+  } else if (in == 0x3F800001) {
+    // special case
+    return 0x3F800000;
   } else if (bin(m_b,24)) {
     return makeFloat (sign,expr,bina (sum,24,2));  
   } else {
-    return makeFloat (sign,expr,bina (sum,23,1));  
+    return makeFloat (sign,expr,bina (sum,23,1));
   }
   
 }

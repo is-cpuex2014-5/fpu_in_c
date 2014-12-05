@@ -44,7 +44,7 @@ fsubIntTest (void)
 char *
 fsubTest (void)
 {
-  for (int i = 0; i < 1000; i++)
+  for (int i = 0; i < 100000; i++)
     {
       static char str[1000];
       float a = frand (), b = frand ();

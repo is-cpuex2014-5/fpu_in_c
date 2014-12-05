@@ -19,7 +19,7 @@ all: $(PRODUCTS)
 	$(CC) -c -MM $(CFLAGS) $< > $@
 
 clean:
-	rm -f *.o *.d
+	rm -f *.o *.d $(PRODUCTS)
 
 check-syntax:
 	$(CC) $(CFLAGS) -fsyntax-only $(CHK_SOURCES)
