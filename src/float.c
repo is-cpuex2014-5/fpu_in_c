@@ -43,6 +43,15 @@ print_binary (const uint32_t a)
 }
 
 void
+fprint_binary (FILE* stream,const uint32_t a)
+{
+  for (int t = 31; t >= 0;t--) 
+    {
+      putc (a & (1 << t) ? '1' : '0',stream);
+    }
+}
+
+void
 print_binary_n (const uint64_t a,int b)
 {
   for (int t = b - 1; t >= 0;t--) 

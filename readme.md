@@ -13,6 +13,12 @@ fpuをCで実装したもの.
 * denormalized numberは採用していない.(0になる)
 * roundingはround evenを採用している.
 
+faddの仕様
+==========
+* expr & mantissaが等しいときは第二引数の符号に合わせる
+    * +0 + -0 = -0
+
+
 h_floorの仕様
 =============
 
