@@ -1,8 +1,8 @@
 CC = gcc
 SRCS = fmul_test.c minunit.c float_test.c fadd_test.c fsub_test.c i2f_test.c floor_test.c fdiv_test.c fsqrt_test.c feq_test.c flt_test.c
 INCLUDE_OPTS = -I../ -I. -I../src
-CFLAGS = -std=c99 -O3 -g $(INCLUDE_OPTS) -Wall -W -fopenmp 
-LDFLAGS = -L.. -lm -lfpu -liomp5 -lpthread -lirc -lgomp
+CFLAGS = -std=c99 -O3 -g $(INCLUDE_OPTS) -Wall -W
+LDFLAGS = -L.. -lm -lfpu
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 
