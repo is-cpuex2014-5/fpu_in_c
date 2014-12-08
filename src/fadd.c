@@ -27,7 +27,7 @@ ZLC (uint32_t a)
 
 //! abs(a) > abs(b) の前提の元計算する.
 static uint32_t
-fadd_i (uint32_t a,uint32_t b)
+fadd_i (const uint32_t a,const uint32_t b)
 {
   uint32_t mantissa;
   const uint8_t sign = getSign (a);
