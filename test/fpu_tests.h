@@ -53,3 +53,6 @@ feqTest (void);
 
 char *
 fltTest (void);
+
+char *
+fabsTest (void);
