@@ -38,3 +38,6 @@ flt (uint32_t,uint32_t);
 
 uint32_t
 h_fabs (uint32_t);
+
+uint32_t
+fneg (uint32_t);

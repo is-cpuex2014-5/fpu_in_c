@@ -41,7 +41,8 @@ all_tests ()
   mu_run_test (fsqrtTest);
   mu_run_test (feqTest);
   mu_run_test (fltTest);
-  mu_run_test (fabsTest);  
+  mu_run_test (fabsTest);
+  mu_run_test (fnegTest);  
   return 0;
 }
 

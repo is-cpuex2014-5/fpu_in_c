@@ -56,3 +56,6 @@ fltTest (void);
 
 char *
 fabsTest (void);
+
+char *
+fnegTest (void);
