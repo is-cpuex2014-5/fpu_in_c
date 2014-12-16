@@ -59,6 +59,8 @@ finv (uint32_t in)
     }
 
   const uint64_t raw_ret = table(key);
+  printf ("key %d\n",key);
+  printf ("raw_ret %lx\n",raw_ret);
   const uint32_t a = raw_ret >> 23;
   const uint32_t b = bina(raw_ret,22,0);
   const uint32_t l_b = getMant (in) & ((1 << 11) - 1);

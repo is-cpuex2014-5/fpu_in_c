@@ -31,9 +31,10 @@ main (int argc,char *argv[])
       return 2;
     }
 
-  b.as_int = h_floor (a.as_int);
+  b.as_int = finv (a.as_int);
   printf ("as int : %d\n",b.as_int);
   printf ("as float : %f\n",b.as_float);
+  printf ("as hex : %x\n",b.as_int);
 
   return 0;  
 }
