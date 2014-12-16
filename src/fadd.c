@@ -104,7 +104,7 @@ fadd_i (const uint32_t a,const uint32_t b)
       {
 	m_a <<= (bina (leading_zero,4,2) << 2);	
       }
-    
+
     e_a -= leading_zero - 1;
     if (e_a < (leading_zero - 1) || leading_zero >= 26)
       {
@@ -113,13 +113,12 @@ fadd_i (const uint32_t a,const uint32_t b)
   }
 
   // Step 6
-
   exp = bina(e_a,7,0);
   mantissa = bina (m_a,25,3);  
   
-  if (e_a == 0)
+  if (getExp(a) == 0)
       return changeSign(sign, b);
-  if (e_b == 0)
+  if (getExp(b) == 0)
       return changeSign(sign, a);
 
   return makeFloat(sign,exp,mantissa);    

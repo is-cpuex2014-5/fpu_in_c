@@ -40,6 +40,7 @@ main (int argc,char *argv[])
 
   c.as_int = fadd (a.as_int,b.as_int);
   printf ("as int : %d\n",c.as_int);
+  printf ("as hex : %x\n",c.as_int);
   printf ("as float : %g\n",c.as_float);
   
 #define max(A,B) ((A) > (B) ? (A) : (B))

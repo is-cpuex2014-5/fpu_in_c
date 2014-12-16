@@ -120,9 +120,9 @@ fsub_i (const uint32_t a,const uint32_t b)
   exp = bina(e_a,7,0);
   mantissa = bina (m_a,25,3);  
 
-  if (e_a == 0)
+  if (getExp(a) == 0)
       return changeSign(sign, b);
-  if (e_b == 0)
+  if (getExp(b) == 0)
       return changeSign(sign, a);
 
   return makeFloat(sign,exp,mantissa);    
